@@ -217,7 +217,7 @@ export class DistfacilityInformationComponent {
     this.spinner.show();
     if (form.valid) {
    
-      this.api.updateFacilityContact(this.facilityId,this.contactPersonName,this.phone).subscribe(
+      this.api.updateFacilityContact(this.facilityid,this.contactPersonName,this.phone).subscribe(
 
         (res: any) => {
           this.toastr.success(res.message, 'Success');
@@ -226,7 +226,7 @@ export class DistfacilityInformationComponent {
 
           this.modalInstance.hide();
 
-          this.modal.hide();
+        
           this.spinner.hide();
 
         },
