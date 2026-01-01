@@ -39,8 +39,10 @@ export class DistfacilityInformationComponent {
   @ViewChild(MatSort) sort!: MatSort;
   phone: any = '';
   contactPersonName: any = '';
-  modal:any;
-  facilityId:any
+
+  facilityid:any;
+  modalInstance: any;
+
   constructor(
     private spinner: NgxSpinnerService,
     private api: ApiServiceService,
@@ -186,38 +188,47 @@ export class DistfacilityInformationComponent {
   }
 
 
-  
-  openmarqModal(phone:any,contactpersonname:any,facilityId:any): void {
+
+  openmarqModal(phone:any,contactpersonname:any,facilityid:any): void {
     this.phone = phone;
     this.contactPersonName = contactpersonname;
-    this.facilityId = facilityId;
+   this.facilityid=facilityid;
     document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
   
     const modalEl = document.getElementById('pdfModal')!;
     document.body.appendChild(modalEl);
     (modalEl as HTMLElement).style.zIndex = '99999';
   
-    this.modal = new bootstrap.Modal(modalEl, {
-      backdrop: false, 
+
+    this.modalInstance = new bootstrap.Modal(modalEl, {
+      backdrop: false, // no backdrop
       keyboard: true,
       focus: true
     });
-   this.modal.show();
+    this.modalInstance.show();
+
   }
 
 
   // Save button
+  // sessionStorage.getItem('facilityId')
   onSubmit(form: any) {
+
     this.spinner.show();
     if (form.valid) {
    
       this.api.updateFacilityContact(this.facilityId,this.contactPersonName,this.phone).subscribe(
+
         (res: any) => {
           this.toastr.success(res.message, 'Success');
           form.reset();
           this.getAllDispatchPending();
+
+          this.modalInstance.hide();
+
           this.modal.hide();
           this.spinner.hide();
+
         },
         (err) => {
           this.spinner.hide();

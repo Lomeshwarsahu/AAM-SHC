@@ -703,7 +703,7 @@ postOtherFacilityIndent1(facid: any, Target_facid: any, programid: any, indentDt
           // }
           updateFacilityContact(facilityId: any,contactPersonName: any,phone1:any) {
             // https://dpdmis.in/AAMAPIMR/api/AAMAdmin/updateFacilityContact?facilityId=27955&contactPersonName=Khushboo Sarva&phone1=9399805726
-        
+      
             return this.http.put(`${this.apiUrl}/AAMAdmin/updateFacilityContact?facilityId=${facilityId}&contactPersonName=${contactPersonName}&phone1=${phone1}`,{});
 
           }

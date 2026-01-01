@@ -42,8 +42,8 @@ export type ChartOptions = {
 })
 export class LoginComponent {
   @ViewChild('chart') chart: ChartComponent | undefined;
-  public cO: Partial<ChartOptions> | undefined;
-  chartOptions: ChartOptions;
+  // public cO: Partial<ChartOptions> | undefined;
+  // chartOptions: ChartOptions;
   activeTab: string = 'aamLogin';
   username: any;
   emailid: any;
@@ -72,80 +72,80 @@ export class LoginComponent {
     private cdr: ChangeDetectorRef,
     public hardcodedAuthenticationService: HardcodedAuthenticationService
   ) {
-    this.chartOptions = {
-      series: [],
-      chart: {
-        type: 'bar',
-        height: 400,
-        events: {},
-      },
-      plotOptions: {
-        bar: {
-          horizontal: false, // Switch to vertical bars
-          columnWidth: '50%', // Adjust width to make bars thinner
-          borderRadius: 4, // Add slight rounding to bars
-        },
-      },
-      xaxis: {
-        categories: [], // Placeholder, will be set dynamically
-      },
-      yaxis: {
-        min: 0,
-        max: 12, // Adjusted to fit the data range (can be updated as needed)
-        labels: {
-          formatter: (val) => `${val}%`, // Show percentages on y-axis
-        },
-        title: {
-          text: undefined,
-        },
-      },
-      dataLabels: {
-        enabled: true,
-        formatter: function (val: any) {
-          return `${val}%`; // Show values with percentage symbol
-        },
-        offsetY: -10,
-        style: {
-          fontSize: '12px',
-          colors: ['#000'], // Darker color for contrast
-        },
-      },
-      fill: {
-        colors: ['#3498db'], // Set the color for the bars here
-        opacity: 1,
-      },
-      stroke: {
-        width: 1,
-        colors: ['#fff'], // Optional, white stroke to give a border effect around bars
-      },
-      title: {
-        text: 'District wise Rollout',
-        align: 'center',
-        style: {
-          fontSize: '16px',
-          fontWeight: 'bold',
-          color: '#333',
-        },
-      },
-      tooltip: {
-        y: {
-          formatter: function (val: any) {
-            return `${val}%`; // Show percentage in tooltip
-          },
-        },
-      },
-      legend: {
-        show: false, // Hide legend as the chart doesn’t require it
-      },
-    };
+    // this.chartOptions = {
+    //   series: [],
+    //   chart: {
+    //     type: 'bar',
+    //     height: 400,
+    //     events: {},
+    //   },
+    //   plotOptions: {
+    //     bar: {
+    //       horizontal: false, // Switch to vertical bars
+    //       columnWidth: '50%', // Adjust width to make bars thinner
+    //       borderRadius: 4, // Add slight rounding to bars
+    //     },
+    //   },
+    //   xaxis: {
+    //     categories: [], // Placeholder, will be set dynamically
+    //   },
+    //   yaxis: {
+    //     min: 0,
+    //     max: 12, // Adjusted to fit the data range (can be updated as needed)
+    //     labels: {
+    //       formatter: (val) => `${val}%`, // Show percentages on y-axis
+    //     },
+    //     title: {
+    //       text: undefined,
+    //     },
+    //   },
+    //   dataLabels: {
+    //     enabled: true,
+    //     formatter: function (val: any) {
+    //       return `${val}%`; // Show values with percentage symbol
+    //     },
+    //     offsetY: -10,
+    //     style: {
+    //       fontSize: '12px',
+    //       colors: ['#000'], // Darker color for contrast
+    //     },
+    //   },
+    //   fill: {
+    //     colors: ['#3498db'], // Set the color for the bars here
+    //     opacity: 1,
+    //   },
+    //   stroke: {
+    //     width: 1,
+    //     colors: ['#fff'], // Optional, white stroke to give a border effect around bars
+    //   },
+    //   title: {
+    //     text: 'District wise Rollout',
+    //     align: 'center',
+    //     style: {
+    //       fontSize: '16px',
+    //       fontWeight: 'bold',
+    //       color: '#333',
+    //     },
+    //   },
+    //   tooltip: {
+    //     y: {
+    //       formatter: function (val: any) {
+    //         return `${val}%`; // Show percentage in tooltip
+    //       },
+    //     },
+    //   },
+    //   legend: {
+    //     show: false, // Hide legend as the chart doesn’t require it
+    //   },
+    // };
     
     
-    this.loadData();
+    // this.loadData();
   }
   ngOnInit(): void {
    
     
-    this.loadData()
+    // this.loadData()
    
     
   }
@@ -211,23 +211,23 @@ export class LoginComponent {
 
        
 
-        this.chartOptions.series = [
-          // {
-          //   name: 'target',
-          //   data: target
-          // },
-          // {
-          //   name: 'achivement',
-          //   data: achivement
-          // },
-          {
-            name: 'per',
-            data: per
-          }
-        ];
-        this.chartOptions.xaxis = {
-          categories: districtname
-        };
+        // this.chartOptions.series = [
+        //   // {
+        //   //   name: 'target',
+        //   //   data: target
+        //   // },
+        //   // {
+        //   //   name: 'achivement',
+        //   //   data: achivement
+        //   // },
+        //   {
+        //     name: 'per',
+        //     data: per
+        //   }
+        // ];
+        // this.chartOptions.xaxis = {
+        //   categories: districtname
+        // };
         this.cdr.detectChanges();
         this.spinner.hide();
       },
@@ -280,7 +280,7 @@ export class LoginComponent {
   }
 
   handleLogin() {
-    
+    debugger
     // sessionStorage.clear();
     // localStorage.clear();
     this.emailid = this.emailid.trim();
