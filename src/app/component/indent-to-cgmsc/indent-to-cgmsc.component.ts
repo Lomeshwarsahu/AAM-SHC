@@ -16,6 +16,7 @@ export interface ItemData {
   styleUrls: ['./indent-to-cgmsc.component.css']
 })
 export class IndentToCgmscComponent {
+
   form: FormGroup;
   items: string[] = ['Item 1', 'Item 2', 'Item 3'];
   displayedColumns: string[] = ['itemName', 'code', 'strength', 'whStock', 'shcStock', 'indentQty'];

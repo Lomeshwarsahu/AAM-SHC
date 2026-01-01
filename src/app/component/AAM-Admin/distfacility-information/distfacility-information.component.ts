@@ -226,7 +226,7 @@ export class DistfacilityInformationComponent {
 
           this.modalInstance.hide();
 
-        
+          this.modalInstance.hide();
           this.spinner.hide();
 
         },
