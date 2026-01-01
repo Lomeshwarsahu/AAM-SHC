@@ -47,10 +47,12 @@
   </ng-container>
   
   <!-- Opening Stock Column -->
-  <ng-container matColumnDef="nosdrugsopstock">
-    <th mat-header-cell *matHeaderCellDef mat-sort-header> Opening Stock Drugs </th>
-    <td mat-cell *matCellDef="let element"> {{ element.nosdrugsopstock }} </td>
-  </ng-container>
+<ng-container matColumnDef="nosdrugsopstock">
+  <th mat-header-cell *matHeaderCellDef mat-sort-header> Opening Stock Drugs </th>
+  <td mat-cell *matCellDef="let element">
+    {{ element.nosdrugsopstock === 1 ? 'YES' : element.nosdrugsopstock }}
+  </td>
+</ng-container>
   
   <!-- Indent Column -->
   <ng-container matColumnDef="nosindent">
