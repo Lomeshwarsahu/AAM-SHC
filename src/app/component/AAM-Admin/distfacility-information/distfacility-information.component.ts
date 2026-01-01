@@ -39,6 +39,8 @@ export class DistfacilityInformationComponent {
   @ViewChild(MatSort) sort!: MatSort;
   phone: any = '';
   contactPersonName: any = '';
+  modal:any;
+  facilityId:any
   constructor(
     private spinner: NgxSpinnerService,
     private api: ApiServiceService,
@@ -184,54 +186,42 @@ export class DistfacilityInformationComponent {
   }
 
 
-  // onButtonClick(phone:any,contactpersonname:any){
-  //   console.log('phone:',phone,'contactpersonname:',contactpersonname);
-  //   // alert("This function will be available in the upcoming update!");
-  // //  this.openmarqModal(phone);
-  // }
-  // hello lomesh
-  openmarqModal(phone:any,contactpersonname:any): void {
-    // this.sanitizedPdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(pdfUrl);
+  
+  openmarqModal(phone:any,contactpersonname:any,facilityId:any): void {
     this.phone = phone;
     this.contactPersonName = contactpersonname;
-    // Remove any leftover backdrops (from previous opens)
+    this.facilityId = facilityId;
     document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
   
     const modalEl = document.getElementById('pdfModal')!;
-    // ensure modal appended to body so it sits above other layout elements
     document.body.appendChild(modalEl);
-  
-    // Optional: force z-index higher than anything else on page
     (modalEl as HTMLElement).style.zIndex = '99999';
   
-    const modal = new bootstrap.Modal(modalEl, {
-      backdrop: false, // no backdrop
+    this.modal = new bootstrap.Modal(modalEl, {
+      backdrop: false, 
       keyboard: true,
       focus: true
     });
-    modal.show();
+   this.modal.show();
   }
 
 
   // Save button
   onSubmit(form: any) {
-    debugger;
+    this.spinner.show();
     if (form.valid) {
-      console.log('Updated Phone:', this.phone);
-      console.log('Updated Name:', this.contactPersonName);
-      this.api.updateFacilityContact(sessionStorage.getItem('facilityId'),this.contactPersonName,this.phone).subscribe(
+   
+      this.api.updateFacilityContact(this.facilityId,this.contactPersonName,this.phone).subscribe(
         (res: any) => {
           this.toastr.success(res.message, 'Success');
           form.reset();
-          // this.submitted = false;
-          // this.selectedAnuvFile = null;
           this.getAllDispatchPending();
-        //  this.loadingSectionB = false;
-        //   this.onshowAT=false;
+          this.modal.hide();
+          this.spinner.hide();
         },
         (err) => {
+          this.spinner.hide();
           this.toastr.error('Submission failed', 'Error');
-          // this.loadingSectionB = false;
           console.error(err);
         }
       ); 
