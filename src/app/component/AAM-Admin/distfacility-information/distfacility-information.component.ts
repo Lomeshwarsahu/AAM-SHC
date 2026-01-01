@@ -39,6 +39,8 @@ export class DistfacilityInformationComponent {
   @ViewChild(MatSort) sort!: MatSort;
   phone: any = '';
   contactPersonName: any = '';
+  facilityid:any;
+  modalInstance: any;
   constructor(
     private spinner: NgxSpinnerService,
     private api: ApiServiceService,
@@ -190,10 +192,11 @@ export class DistfacilityInformationComponent {
   // //  this.openmarqModal(phone);
   // }
   // hello lomesh
-  openmarqModal(phone:any,contactpersonname:any): void {
+  openmarqModal(phone:any,contactpersonname:any,facilityid:any): void {
     // this.sanitizedPdfUrl = this.sanitizer.bypassSecurityTrustResourceUrl(pdfUrl);
     this.phone = phone;
     this.contactPersonName = contactpersonname;
+   this.facilityid=facilityid;
     // Remove any leftover backdrops (from previous opens)
     document.querySelectorAll('.modal-backdrop').forEach(el => el.remove());
   
@@ -204,34 +207,35 @@ export class DistfacilityInformationComponent {
     // Optional: force z-index higher than anything else on page
     (modalEl as HTMLElement).style.zIndex = '99999';
   
-    const modal = new bootstrap.Modal(modalEl, {
+    this.modalInstance = new bootstrap.Modal(modalEl, {
       backdrop: false, // no backdrop
       keyboard: true,
       focus: true
     });
-    modal.show();
+    this.modalInstance.show();
   }
 
 
   // Save button
+  // sessionStorage.getItem('facilityId')
   onSubmit(form: any) {
-    debugger;
+    // debugger;
     if (form.valid) {
-      console.log('Updated Phone:', this.phone);
-      console.log('Updated Name:', this.contactPersonName);
-      this.api.updateFacilityContact(sessionStorage.getItem('facilityId'),this.contactPersonName,this.phone).subscribe(
+      // console.log('Updated Phone:', this.phone);
+      // console.log('Updated Name:', this.contactPersonName);
+      // console.log('facilityid:', this.facilityid);
+   
+      // return;
+      this.api.updateFacilityContact(this.facilityid,this.contactPersonName,this.phone).subscribe(
         (res: any) => {
           this.toastr.success(res.message, 'Success');
           form.reset();
-          // this.submitted = false;
-          // this.selectedAnuvFile = null;
           this.getAllDispatchPending();
-        //  this.loadingSectionB = false;
-        //   this.onshowAT=false;
+          this.modalInstance.hide();
         },
         (err) => {
           this.toastr.error('Submission failed', 'Error');
-          // this.loadingSectionB = false;
+       
           console.error(err);
         }
       ); 
