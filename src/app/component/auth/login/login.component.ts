@@ -51,10 +51,13 @@ export class LoginComponent {
   password: any;
   showAdminPassword: boolean = false;
   email: any;
-  errorMessage = "Invalid Credential";
-  adminErrorMessage: string = 'Invalid admin credentials';
+  // errorMessage = "Invalid Credential";
+  errorMessage = " ";
+  // adminErrorMessage: string = 'Invalid admin credentials';
+  adminErrorMessage = '';
+  invalidAdminLogin = false;
   invalidLogin = false;
-  invalidAdminLogin: boolean = false;
+
   phonE1: any;
   showFullText = false;
   showPassword = false;
@@ -181,12 +184,24 @@ export class LoginComponent {
         } else {
           this.invalidAdminLogin = true;
           this.adminErrorMessage = res.message || 'Invalid login credentials'; // Use backend error message
+          setTimeout(() => {
+            this.invalidAdminLogin = false;
+            this.adminErrorMessage = '';
+          }, 3000);
           this.spinner.hide();
         }
       },
       error => {
+
         this.invalidAdminLogin = true;
         this.adminErrorMessage = 'Invalid Credentials'; // Default error message
+        
+
+      setTimeout(() => {
+      
+        this.invalidAdminLogin = false;
+        this.adminErrorMessage = '';
+      }, 3000);
         console.error('Login error:', error); // Log the error
         this.spinner.hide();
       }
@@ -335,12 +350,20 @@ export class LoginComponent {
         } else {
           this.invalidLogin = true;
           this.errorMessage = res.message || 'Invalid login credentials'; // Use backend error message
+          setTimeout(() => {
+            this.invalidLogin = false;
+            this.errorMessage = '';
+          }, 3000);
           this.spinner.hide();
         }
       },
       error => {
         this.invalidLogin = true;
         this.errorMessage = 'Invalid Credentials'; // Default error message
+        setTimeout(() => {
+          this.invalidLogin = false;
+          this.errorMessage = '';
+        }, 3000);
         console.error('Login error:', error); // Log the error
         this.spinner.hide();
       }

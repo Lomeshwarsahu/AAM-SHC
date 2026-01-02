@@ -39,7 +39,6 @@ export class DistfacilityInformationComponent {
   @ViewChild(MatSort) sort!: MatSort;
   phone: any = '';
   contactPersonName: any = '';
-
   facilityid:any;
   modalInstance: any;
 
@@ -223,8 +222,6 @@ export class DistfacilityInformationComponent {
           this.toastr.success(res.message, 'Success');
           form.reset();
           this.getAllDispatchPending();
-
-          this.modalInstance.hide();
 
           this.modalInstance.hide();
           this.spinner.hide();

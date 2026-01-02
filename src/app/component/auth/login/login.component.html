@@ -153,9 +153,13 @@
                     </div>
                     <div class="card-body">
                       <form (ngSubmit)="handleAdminLogin()">
-                        <div *ngIf="invalidAdminLogin" class="alert alert-warning">
+                        <div *ngIf="invalidAdminLogin" class="alert alert-warning show">
                           {{ adminErrorMessage }}
                         </div>
+                        
+                        <!-- <div *ngIf="invalidAdminLogin" class="alert alert-warning">
+                          {{ adminErrorMessage }}
+                        </div> -->
                         
                         <!-- Admin Email/Username input with validation -->
                         <div class="mb-3">
@@ -235,7 +239,7 @@
                   </div>
                 </div>
               </div>
-
+                    
               <!-- Video Tutorials Tab -->
               <div class="tab-pane fade " id="tutorials" role="tabpanel" aria-labelledby="tutorials-tab">
                 <div class="card mb-4">
