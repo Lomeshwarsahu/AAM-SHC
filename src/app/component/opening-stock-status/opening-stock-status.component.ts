@@ -213,6 +213,7 @@ printOpeningStockReport(item:any){
   
   const facreceiptno = item.facreceiptno;
   const facreceiptdate =item.facreceiptdate;
+  this.datePipe.transform(facreceiptdate, 'dd-MM-yyyy') || '';
 
 
   // const wHIsueNo = item.whissueno;
@@ -266,7 +267,11 @@ printOpeningStockReport(item:any){
 
       doc.text(title, xOffset, 20); // Centered title at position Y=20
       doc.setFontSize(10);
-      doc.text(`Date: ${dateString} Time: ${timeString}`, 10, 10); // Date/Time at position X=10, Y=10
+      doc.text(`Date: ${dateString} 
+      
+      `, 10, 10
+      )
+      ; // Date/Time at position X=10, Y=10
 
       // Add indent details (Left and right aligned)
       doc.setFontSize(12);
@@ -305,8 +310,8 @@ printOpeningStockReport(item:any){
         strength: item.strength,
         batchno: item.batchno,
         batrchreceiptqty: item.batrchreceiptqty,
-        mfgdate: item.mfgdate,
-        expdate: item.expdate,
+        mfgdate:  this.datePipe.transform(item.mfgdate, 'dd-MM-yyyy') || '',
+        expdate: this.datePipe.transform(item.expdate,'dd-MM-yyyy')||'',
         // issuewh: item.issuewh,
         // absrqty: item.absrqty,
         // rstatus: this.getStatusText(item.rstatus),

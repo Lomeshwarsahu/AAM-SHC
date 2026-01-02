@@ -171,11 +171,10 @@ export class IndentToWarehouseComponent implements OnInit {
 
 
   printINdent(item: any) {
-    
-    const reqDate = item.reqDate;
+    const reqDate = this.datePipe.transform(item.reqDate, 'dd-MM-yyyy') || '';
     const reqno = item.reqno;
     const nocid = item.nocid;
-    const status1=item.istatus;
+    const status1 = item.istatus;
     const status = status1 === 'C' ? 'Completed' : 'Incomplete';
   
     // Fetch data from the API
@@ -209,7 +208,7 @@ export class IndentToWarehouseComponent implements OnInit {
   
         // Set up title and additional information
         // const title ='Warehouse - Indent'  
-        const title ='Parent Facility - Indent'  
+        const title = 'Parent Facility - Indent'  
           // (sessionStorage.getItem('firstname') || 'Indent Details');
         const pageWidth = doc.internal.pageSize.getWidth();
         const titleWidth = doc.getTextWidth(title);
@@ -219,7 +218,7 @@ export class IndentToWarehouseComponent implements OnInit {
         doc.setFontSize(18);
         doc.text(title, xOffset, 20); // Centered title at position Y=20
         doc.setFontSize(10);
-        doc.text(`Date: ${dateString} Time: ${timeString}`, 10, 10); // Date/Time at position X=10, Y=10
+        doc.text(`Date: ${dateString} `, 10, 10); // Date/Time at position X=10, Y=10
   
         // Add indent details (Left and right aligned)
         doc.setFontSize(12);
@@ -254,45 +253,47 @@ export class IndentToWarehouseComponent implements OnInit {
           whindentQTY: item.whindentQTY
         }));
   
-       
-  // Step 6: Use the autoTable method
-  autoTable(doc, {
-    head: [columns.map(col => col.header)], // Add headers from columns
-    body: rows.map(row => Object.values(row)), // Map row values in order
-    theme: 'grid',
-    margin: { top: 60 }, // Adjusted margin top for title and indent details
-    styles: { cellPadding: 3, fontSize: 10 },
-    didDrawPage: function (data) {
-      // Retrieve contactpersonname and phonE1 from sessionStorage
-      const contactpersonname = sessionStorage.getItem('contactpersonname') || 'N/A';
-      const phonE1 = sessionStorage.getItem('phonE1') || 'N/A';
-      
-      // Calculate the bottom-right position for the text
-      const pageWidth = doc.internal.pageSize.getWidth();
-      const pageHeight = doc.internal.pageSize.getHeight();
-
-      // Set font size for the bottom-right text
-      doc.setFontSize(10);
-
-      // Add contact person name and phone number at the bottom-right corner of each page
-
-      // const footerText = `Contact Person: ${contactpersonname}, Phone: ${phonE1}`;
-      
-      // doc.text(footerText, pageWidth - doc.getTextWidth(footerText) - 10, pageHeight - 10);
-      const footerText = [
-        'Incharge', // First line
-        `Name: ${contactpersonname}`, // Second line
-        `Mob: ${phonE1}` // Third line
-      ];
-      
-      // Adjust X and Y positions for the text
-      doc.text(footerText, pageWidth - doc.getTextWidth('Mob: ' + phonE1) - 20, pageHeight - 20); 
-      
-    }
-  });
-
-  // Step 7: Save the PDF
-  doc.save('Indent-Details.pdf');
+        // Step 6: Use the autoTable method
+        autoTable(doc, {
+          head: [columns.map(col => col.header)], // Add headers from columns
+          body: rows.map(row => Object.values(row)), // Map row values in order
+          theme: 'grid',
+          margin: { top: 60, bottom: 30 }, // Adjusted margin top for title and indent details; added bottom margin to reserve space for footer
+          styles: { cellPadding: 3, fontSize: 10 },
+          didDrawPage: function (data) {
+            // Retrieve contactpersonname and phonE1 from sessionStorage
+            const contactpersonname = sessionStorage.getItem('contactpersonname') || 'N/A';
+            const phonE1 = sessionStorage.getItem('phonE1') || 'N/A';
+            
+            // Calculate the bottom-right position for the text
+            const pageWidth = doc.internal.pageSize.getWidth();
+            const pageHeight = doc.internal.pageSize.getHeight();
+  
+            // Set font size for the bottom-right text
+            doc.setFontSize(10);
+  
+            // Add contact person name and phone number at the bottom-right corner of each page
+  
+            // const footerText = `Contact Person: ${contactpersonname}, Phone: ${phonE1}`;
+            
+            // doc.text(footerText, pageWidth - doc.getTextWidth(footerText) - 10, pageHeight - 10);
+            const footerText = [
+              'Incharge', // First line
+              `Name: ${contactpersonname}`, // Second line
+              `Mob: ${phonE1}` // Third line
+            ];
+            
+            // Adjust X and Y positions for the text (start higher to account for multi-line height ~15mm + padding)
+            const footerX = pageWidth - doc.getTextWidth(footerText[2]) - 15; // Right-align based on longest line (Mob line)
+            const footerY = pageHeight - 25; // Start Y higher to fit 3 lines without overlap (adjust as needed)
+            
+            doc.text(footerText, footerX, footerY); 
+            
+          }
+        });
+  
+        // Step 7: Save the PDF
+        doc.save('Indent-Details.pdf');
       },
       (error) => {
         console.error('Error fetching data', error);

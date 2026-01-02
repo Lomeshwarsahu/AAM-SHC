@@ -5,35 +5,10 @@ import { HardcodedAuthenticationService } from 'src/app/service/authentication/h
 import { NgxSpinnerService } from 'ngx-spinner';
 import Swal from 'sweetalert2';
 
-import {
-  ApexAxisChartSeries,
-  ApexChart,
-  ChartComponent,
-  ApexDataLabels,
-  ApexXAxis,
-  ApexPlotOptions,
-  ApexStroke,
-  ApexTitleSubtitle,
-  ApexYAxis,
-  ApexTooltip,
-  ApexFill,
-  ApexLegend
-} from 'ng-apexcharts';
+
 import { ApiServiceService } from 'src/app/service/api-service.service';
 
-export type ChartOptions = {
-  series: ApexAxisChartSeries;
-  chart: ApexChart;
-  dataLabels: ApexDataLabels;
-  plotOptions: ApexPlotOptions;
-  xaxis: ApexXAxis;
-  yaxis: ApexYAxis;
-  stroke: ApexStroke;
-  title: ApexTitleSubtitle;
-  tooltip: ApexTooltip;
-  fill: ApexFill;
-  legend: ApexLegend;
-};
+
 
 @Component({
   selector: 'app-login',
@@ -41,9 +16,8 @@ export type ChartOptions = {
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent {
-  @ViewChild('chart') chart: ChartComponent | undefined;
-  // public cO: Partial<ChartOptions> | undefined;
-  // chartOptions: ChartOptions;
+  
+  
   activeTab: string = 'aamLogin';
   username: any;
   emailid: any;
@@ -75,7 +49,7 @@ export class LoginComponent {
     private cdr: ChangeDetectorRef,
     public hardcodedAuthenticationService: HardcodedAuthenticationService
   ) {
-    // this.chartOptions = {
+   
     //   series: [],
     //   chart: {
     //     type: 'bar',
@@ -148,7 +122,7 @@ export class LoginComponent {
   ngOnInit(): void {
    
     
-    // this.loadData()
+  
    
     
   }
@@ -226,7 +200,7 @@ export class LoginComponent {
 
        
 
-        // this.chartOptions.series = [
+       
         //   // {
         //   //   name: 'target',
         //   //   data: target
