@@ -129,12 +129,12 @@ deleteReceipt(receiptid:any){
 }
 printReceiptVoucher(item:any){
 
-  const reqDate = item.reqdate;
+  const reqDate = this.datePipe.transform(item.reqdate, 'dd-MM-yyyy') || '';
   const reqno = item.reqno;
   const wHIsueNo = item.whissueno;
-  const wHIsueDT = item.whissuedt;
+  const wHIsueDT = this.datePipe.transform(item.whissuedt,'dd-MM-yyyy')|| '';
   const receiptnumber = item.facreceiptno;
-  const receiptdate = item.facreceiptdate;
+  const receiptdate =  this.datePipe.transform(item.facreceiptdate,'dd-MM-yyyy')||'';
   const status1=item.rstatus;
   const status = status1 === 'C' ? 'Completed' : 'Incomplete';
 
@@ -177,7 +177,7 @@ printReceiptVoucher(item:any){
       doc.setFontSize(18);
       doc.text(title, xOffset, 20); // Centered title at position Y=20
       doc.setFontSize(10);
-      doc.text(`Date: ${dateString} Time: ${timeString}`, 10, 10); // Date/Time at position X=10, Y=10
+      doc.text(`Date: ${dateString} `, 10, 10); // Date/Time at position X=10, Y=10
 
       // Add indent details (Left and right aligned)
       doc.setFontSize(12);
@@ -227,7 +227,7 @@ autoTable(doc, {
   head: [columns.map(col => col.header)], // Add headers from columns
   body: rows.map(row => Object.values(row)), // Map row values in order
   theme: 'grid',
-  margin: { top: 60 }, // Adjusted margin top for title and indent details
+  margin: { top: 60,bottom: 30 }, // Adjusted margin top for title and indent details
   styles: { cellPadding: 3, fontSize: 10 },
   didDrawPage: function (data) {
     // Retrieve contactpersonname and phonE1 from sessionStorage
